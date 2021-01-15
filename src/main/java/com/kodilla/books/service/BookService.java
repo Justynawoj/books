@@ -1,7 +1,7 @@
 package com.kodilla.books.service;
 
 import com.kodilla.books.domain.Book;
-import com.kodilla.books.domain.BookType;
+import com.kodilla.books.BookType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public class BookService {
 
     private Set<Book> books;
-    private static BookService bookService;
-
     private BookService() {
         this.books = exampleData();
     }
+
+    private static BookService bookService;
 
     public static BookService getInstance() {
         if (bookService == null) {
@@ -46,4 +46,13 @@ public class BookService {
     public Set<Book> findByTitle(String title) {
         return books.stream().filter(book -> book.getTitle().contains(title)).collect(Collectors.toSet());
     }
+
+    public void save(Book book) {
+        this.books.add(book);
+    }
+
+    public void delete(Book book) {
+        this.books.remove(book);
+    }
+
 }

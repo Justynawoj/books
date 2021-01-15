@@ -2,6 +2,8 @@ package com.kodilla.books.domain;
 
 
 
+import com.kodilla.books.BookType;
+
 import java.util.Objects;
 
 public class Book {
