@@ -1,8 +1,10 @@
 package com.kodilla.books;
 
 import com.kodilla.books.domain.Book;
+import com.kodilla.books.domain.BookForm;
 import com.kodilla.books.service.BookService;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -16,10 +18,10 @@ public class MainView extends VerticalLayout {
 
     //Filtrowanie wynikow
     private TextField filter = new TextField();
-
+    private BookForm form = new BookForm(this);
 
     public MainView() {
-        grid.setColumns("title", "author", "publicationYear", "type");
+    /*    grid.setColumns("title", "author", "publicationYear", "type");
         add(grid);
         setSizeFull();
 
@@ -31,6 +33,19 @@ public class MainView extends VerticalLayout {
         update();
         add(filter, grid);
         // na koncu
+        refresh();*/
+
+        filter.setPlaceholder("Filter by title...");
+        filter.setClearButtonVisible(true);
+        filter.setValueChangeMode(ValueChangeMode.EAGER);
+        filter.addValueChangeListener(e -> update());
+        grid.setColumns("title", "author", "publicationYear", "type");
+        HorizontalLayout mainContent = new HorizontalLayout(grid, form);
+        mainContent.setSizeFull();
+        grid.setSizeFull();
+
+        add(filter, mainContent);
+        setSizeFull();
         refresh();
     }
 
@@ -42,4 +57,5 @@ public class MainView extends VerticalLayout {
     private void update() {
         grid.setItems(bookService.findByTitle(filter.getValue()));
     }
+
 }
