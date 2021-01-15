@@ -44,9 +44,14 @@ public class MainView extends VerticalLayout {
         mainContent.setSizeFull();
         grid.setSizeFull();
 
+        //ukrywa formularz
+        form.setBook(null);
         add(filter, mainContent);
         setSizeFull();
+
         refresh();
+
+        grid.asSingleSelect().addValueChangeListener(event -> form.setBook((Book) grid.asSingleSelect().getValue()));
     }
 
     public void refresh() {
