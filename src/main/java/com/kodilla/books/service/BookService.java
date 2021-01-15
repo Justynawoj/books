@@ -5,10 +5,11 @@ import com.kodilla.books.domain.BookType;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookService {
 
-    private Set books;
+    private Set<Book> books;
     private static BookService bookService;
 
     private BookService() {
@@ -22,7 +23,7 @@ public class BookService {
         return bookService;
     }
 
-    public Set getBooks() {
+    public Set<Book> getBooks() {
         return new HashSet<>(books);
     }
 
@@ -40,5 +41,9 @@ public class BookService {
         books.add(new Book("The Handmaid's Tale", "Margaret Atwood", "2019", BookType.CLASSIC));
         books.add(new Book("Watch Us Rise", "Renée Watson,  Ellen Hagan", "2019", BookType.POETRY));
         return books;
+    }
+
+    public Set<Book> findByTitle(String title) {
+        return books.stream().filter(book -> book.getTitle().contains(title)).collect(Collectors.toSet());
     }
 }
